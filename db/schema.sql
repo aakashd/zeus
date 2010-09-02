@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS `zeus`;
+create database `zeus`;
 
 DROP TABLE IF EXISTS `zeus`.`instance_snapshot`;
 

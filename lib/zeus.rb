@@ -1,16 +1,8 @@
 require 'rubygems'
-require 'right_aws'
-require 'active_record'
+require 'wrest'
+require 'mysql'
 
-require 'yml'
-config = YAML::load_file('../config/zeus.yml')
+require 'yaml'
+@config = YAML::load_file(File.dirname(__FILE__) + '/../config/database.yml')
 
-ActiveRecord::Base.establish_connection(
-  :adapter => config["db_adapter"],
-  :host => config["db_host"],
-  :username => config["db_user"],
-  :password => config["db_password"],
-  :database => config[":db_database"]
-)
-
-
+@db_conn = Mysql.real_connect(config['db_host'],config['db_user'],config['db_password'],config['db_database'])

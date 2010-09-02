@@ -1,4 +1,3 @@
-db_adapter : mysql
 db_host : localhost
 db_database : zeus
 db_user : root

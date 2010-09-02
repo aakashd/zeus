@@ -19,6 +19,8 @@ status_lines.each{ |line|
   end
 }
 
+passenger_status["requests_in_queues"] = 0 if passenger_status["requests_in_queues"].nil?
+
 p passenger_status
 
 # reading the system free memory
@@ -27,7 +29,7 @@ free_memory = `free -m`.split("\n").find(){ |l| l.include? "Mem" }.split("\s")[3
 p "free_memory => " + free_memory
 
 # reading instance meta-data
-instance_id = 'asdfsd'
+instance_id = "http://169.254.169.254/latest/meta-data/instance-id".to_uri.get.body
 
 p instance_id
 

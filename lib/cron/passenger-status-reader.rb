@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'wrest'
 status = `passenger-status`
 
 status_lines = status.split("\n")
@@ -23,3 +25,7 @@ p passenger_status
 free_memory = `free -m`.split("\n").find(){ |l| l.include? "Mem" }.split("\s")[3]
 
 p "free_memory => " + free_memory
+
+instance_id = "http://169.254.169.254/latest/meta-data/instance-id".to_uri.get.body
+
+p instance_id

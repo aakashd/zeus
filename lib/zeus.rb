@@ -14,4 +14,8 @@ module Zeus
     @db_conn ||= Mysql.real_connect(config['db_host'],config['db_user'],config['db_password'],config['db_database'])
   end
 
+  def self.instance_id
+    @instance_id ||= "http://169.254.169.254/latest/meta-data/instance-id".to_uri.get.body
+  end
+
 end

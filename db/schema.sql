@@ -17,3 +17,11 @@ CREATE TABLE `zeus`.`instance_snapshot` (
 )
 ENGINE = MyISAM;
 
+drop table if exists `zeus`.`instances`;
+
+create table `zeus`.`instances`(
+  `instance_id` varchar(30) not null primary key,
+  `created_at` timestamp not null,
+  `last_updated_at` timestamp not null
+)
+ENGINE = MyISAM;

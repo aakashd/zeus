@@ -1,3 +1,4 @@
+#!ruby
 require File.dirname(__FILE__) + '/../zeus'
 
 # reading passenger-status
@@ -29,7 +30,7 @@ free_memory = `free -m`.split("\n").find(){ |l| l.include? "Mem" }.split("\s")[3
 p "free_memory => " + free_memory
 
 # reading instance meta-data
-instance_id = "http://169.254.169.254/latest/meta-data/instance-id".to_uri.get.body
+instance_id = Zeus.instance_id
 
 p instance_id
 
@@ -41,3 +42,12 @@ p insert_stmt
 Zeus.connection.query(insert_stmt)
 
 p Zeus.connection.affected_rows
+
+update_stmt = "update instances set last_updated_at = CURRENT_TIMESTAMP where instance_id = '#{Zeus.instance_id}'"
+
+p update_stmt
+
+Zeus.connection.query(update_stmt)
+
+p Zeus.connection.affected_rows
+

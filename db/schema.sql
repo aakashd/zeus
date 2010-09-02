@@ -8,7 +8,7 @@ CREATE TABLE `zeus`.`instance_snapshot` (
   `active_processes` TINYINT  NOT NULL,
   `process_count` TINYINT  NOT NULL,
   `requests_in_queues` TINYINT  NOT NULL,
-  `global_queues` TINYINT  NOT NULL,
+  `requests_in_global_queue` TINYINT  NOT NULL,
   `free_memory` TINYINT  NOT NULL,
   `date_time` TIMESTAMP  NOT NULL,
   PRIMARY KEY (`id`)

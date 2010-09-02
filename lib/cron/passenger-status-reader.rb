@@ -34,7 +34,7 @@ instance_id = "http://169.254.169.254/latest/meta-data/instance-id".to_uri.get.b
 p instance_id
 
 # dumping all info into DB
-insert_stmt = "insert into #{Zeus.config['db_database']}.instance_snapshot(instance_id,max_processes,active_processes,process_count,requests_in_queues,global_queue,free_memory,date_time) values('#{instance_id}',#{passenger_status['max']},#{passenger_status['active']},#{passenger_status['count']},#{passenger_status['requests_in_queues']},#{passenger_status['global_queue']},#{free_memory},now)"
+insert_stmt = "insert into #{Zeus.config['db_database']}.instance_snapshot(instance_id,max_processes,active_processes,process_count,requests_in_queues,requests_in_global_queue,free_memory,date_time) values('#{instance_id}',#{passenger_status['max']},#{passenger_status['active']},#{passenger_status['count']},#{passenger_status['requests_in_queues']},#{passenger_status['global_queue']},#{free_memory},now)"
 
 p insert_stmt
 

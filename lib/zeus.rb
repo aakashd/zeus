@@ -46,7 +46,7 @@ module Zeus
   end
 
   def self.record_for_this_instance_exists
-    Zeus.connection.query("select count(*) from instances where instance_id = '#{instance_id}'").fetch_row[0]
+    Zeus.connection.query("select count(*) from instances where instance_id = '#{instance_id}'").fetch_row[0] == 1
   end
 
 end

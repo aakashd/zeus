@@ -35,7 +35,9 @@ module Zeus
   end
 
   def self.get_admin_instance_id
-    Zeus.connection.query("select instance_id from admin_instance").fetch_row[0]
+    res = Zeus.connection.query("select instance_id from admin_instance")
+    row = res.fetch_row
+    row.nil? ? nil : row[0]
   end
 
   def self.get_attribute_for_instance(column_name,other_instance_id)

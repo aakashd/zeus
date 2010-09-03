@@ -13,7 +13,7 @@ logger.info("affected rows for previous insert - #{Zeus.connection.affected_rows
 
 admin_id = Zeus.get_admin_instance_id
 
-if admin_id.nil? || admin_id.empty?
+if (admin_id.nil? || admin_id.empty?)
   Zeus.connection.query("delete from admin_instance")
   Zeus.connection.query("insert into admin_instance values('#{Zeus.instance_id}')")
 end

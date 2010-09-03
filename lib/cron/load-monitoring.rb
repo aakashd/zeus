@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../zeus'
 
 logger = Zeus.logger
 
-if Zeus.is_admin
+logger.debug('in load-monitoring')
 
+if Zeus.is_admin
+  logger.info('I am admin')
   ten_min_back = Time.now - 600
 
   logger.info('checking avg_queu for the farm')
@@ -50,6 +52,9 @@ if Zeus.is_admin
 
     Zeus.ec2.ec2.terminate_instances(*instances_to_be_removed)
     logger.debug("terminated the instances")
+
   end
 
 end
+
+logger.debug('end of the script')

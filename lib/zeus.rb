@@ -35,7 +35,9 @@ module Zeus
   end
 
   def self.is_admin
-    get_admin_instance_id == instance_id
+    is_admin = get_admin_instance_id == instance_id
+    logger.info("is_admin - #{is_admin}")
+    is_admin
   end
 
   def self.all_live_instances
@@ -50,7 +52,9 @@ module Zeus
   def self.get_admin_instance_id
     res = Zeus.connection.query("select instance_id from admin_instance a where exists (select 1 from instances i where i.instance_id = a.instance_id and i.status = 'running')")
     row = res.fetch_row
-    row.nil? ? nil : row[0]
+    admin_id = row.nil? ? nil : row[0]
+    logger.info('admin instanceid is #{admin_id}')
+    admin_id
   end
 
   def self.get_attribute_for_instance(column_name,other_instance_id)

@@ -1,10 +1,15 @@
 #!ruby
 require File.dirname(__FILE__) + '/../zeus'
 
+logger = Zeus.logger
+
 # if this instance is admin check health of other instances
 if Zeus.is_admin
 
+  logger.info("I am an admin")
+
   instance_ids = Zeus.all_live_instances
+  logger.info("instance_ids #{instance_ids}")
 
   now = Time.now
   instance_ids.each{ |instance_id|

@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'wrest'
 require 'mysql'
-
+require 'right_aws'
 require 'yaml'
 
 module Zeus
@@ -19,11 +19,11 @@ module Zeus
   end
 
   def self.ec2
-    @ec2 ||= RightAws::Ec2.new(ec2_config['aws_access_key_id'],ec2_config[aws_secret_access_key])
+    @ec2 ||= RightAws::Ec2.new(ec2_config['aws_access_key_id'],ec2_config['aws_secret_access_key'])
   end
 
   def self.elb
-    @elb ||= RightAws::ElbInterface.new(ec2_config['aws_access_key_id'],ec2_config[aws_secret_access_key])
+    @elb ||= RightAws::ElbInterface.new(ec2_config['aws_access_key_id'],ec2_config['aws_secret_access_key'])
   end
   
   def self.connection

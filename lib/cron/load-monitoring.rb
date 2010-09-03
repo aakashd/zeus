@@ -34,7 +34,7 @@ if Zeus.is_admin
     current_total_instance = Zeus.all_live_instances.size
     logger.debug("current_total_instances - #{current_total_instance}")
     
-    required_instances = ((avg_active_processes / avg_max_processes) * current_total_instance).ceil
+    required_instances = ((avg_active_processes.to_f / avg_max_processes.to_f) * current_total_instance.to_f).ceil
     logger.debug("required_instances #{required_instances}")
 
     required_instances = 1 if required_instances == 0
@@ -42,7 +42,7 @@ if Zeus.is_admin
     current_instance_ids = Zeus.elb.describe_load_balancers(Zeus.ec2_config['elb-name'])[0][:instances]
     logger.debug("current_instance_ids - #{current_instance_ids}")
 
-    instances_to_be_removed = current_total_instance[required_instances..current_total_instance.size]
+    instances_to_be_removed = current_instance_ids[required_instances..(current_instance_ids.size)]
     logger.debug("instances_to_be_removed - #{instances_to_be_removed}")
 
     Zeus.elb.deregister_instances_with_load_balancer(Zeus.ec2_config['elb-name'],*instances_to_be_removed)

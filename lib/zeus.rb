@@ -13,6 +13,18 @@ module Zeus
   def self.config
     @config ||= YAML::load_file(File.dirname(__FILE__) + '/../config/database.yml')
   end
+
+  def self.ec2_config
+    @ec2_config ||= YAML::load_file(File.dirname(__FILE__) + '/../config/aws.yml')
+  end
+
+  def self.ec2
+    @ec2 ||= RightAws::Ec2.new(ec2_config['aws_access_key_id'],ec2_config[aws_secret_access_key])
+  end
+
+  def self.elb
+    @elb ||= RightAws::ElbInterface.new(ec2_config['aws_access_key_id'],ec2_config[aws_secret_access_key])
+  end
   
   def self.connection
     @db_conn ||= Mysql.real_connect(config['db_host'],config['db_user'],config['db_password'],config['db_database'])
@@ -36,7 +48,7 @@ module Zeus
   end
 
   def self.get_admin_instance_id
-    res = Zeus.connection.query("select instance_id from admin_instance")
+    res = Zeus.connection.query("select instance_id from admin_instance a where exists (select 1 from instances i where i.instance_id = a.instance_id and i.status = 'running')")
     row = res.fetch_row
     row.nil? ? nil : row[0]
   end

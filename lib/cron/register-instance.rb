@@ -6,6 +6,7 @@ logger = Zeus.logger
 if Zeus.record_for_this_instance_exists
 
   Zeus.connection.query("update instances set status = 'running', last_updated_at = CURRENT_TIMESTAMP where instance_id = '#{Zeus.instance_id}'")
+  logger.info("registering an instance with id #{Zeus.instance_id}")
 
 else
 

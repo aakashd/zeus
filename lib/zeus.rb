@@ -45,4 +45,8 @@ module Zeus
     Zeus.connection.query("select #{column_name} from instances where instance_id = '#{other_instance_id}'").fetch_row[0]
   end
 
+  def self.record_for_this_instance_exists
+    Zeus.connection.query("select count(*) from instances where instance_id = '#{instance_id}'").featch_row[0]
+  end
+
 end

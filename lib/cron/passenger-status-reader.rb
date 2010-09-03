@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../zeus')
 logger = Zeus.logger
 
 # reading passenger-status
-status = `passenger-status`
+status = `/opt/ruby-enterprise-1.8.7-2010.02/bin/passenger-status`
 status_lines = status.split("\n")
 
 passenger_status = {}

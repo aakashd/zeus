@@ -32,6 +32,7 @@ module Zeus
     while row = res.fetch_row do
       instance_ids << row[0]
     end
+    instance_ids
   end
 
   def self.get_admin_instance_id

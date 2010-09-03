@@ -1,5 +1,7 @@
 #!ruby
-require File.dirname(__FILE__) + '/../zeus'
+require File.expand_path(File.dirname(__FILE__) + '/../zeus')
+
+logger = Zeus.logger
 
 # reading passenger-status
 status = `passenger-status`
@@ -22,32 +24,24 @@ status_lines.each{ |line|
 
 passenger_status["requests_in_queues"] = 0 if passenger_status["requests_in_queues"].nil?
 
-p passenger_status
+logger.info("passenger status - #{passenger_status}")
 
 # reading the system free memory
 free_memory = `free -m`.split("\n").find(){ |l| l.include? "Mem" }.split("\s")[3]
 
-p "free_memory => " + free_memory
+logger.info("free_memory => #{free_memory}")
 
 # reading instance meta-data
 instance_id = Zeus.instance_id
 
-p instance_id
-
+logger.debug("updating the snapshot for instance #{instance_id}")
 # dumping all info into DB
 insert_stmt = "insert into #{Zeus.config['db_database']}.instance_snapshot(instance_id,max_processes,active_processes,process_count,requests_in_queues,requests_in_global_queue,free_memory,date_time) values('#{instance_id}',#{passenger_status['max']},#{passenger_status['active']},#{passenger_status['count']},#{passenger_status['requests_in_queues']},#{passenger_status['global_queue']},#{free_memory},CURRENT_TIMESTAMP)"
 
-p insert_stmt
-
 Zeus.connection.query(insert_stmt)
-
-p Zeus.connection.affected_rows
 
 update_stmt = "update instances set last_updated_at = CURRENT_TIMESTAMP where instance_id = '#{Zeus.instance_id}'"
 
-p update_stmt
+logger.debug("updating the las updated time")
 
 Zeus.connection.query(update_stmt)
-
-p Zeus.connection.affected_rows
-

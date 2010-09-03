@@ -22,6 +22,13 @@ drop table if exists `zeus`.`instances`;
 create table `zeus`.`instances`(
   `instance_id` varchar(30) not null primary key,
   `created_at` timestamp not null,
-  `last_updated_at` timestamp not null
+  `last_updated_at` timestamp not null,
+  `status` varchar(15) not null
+)
+ENGINE = MyISAM;
+
+drop table if exists `zeus`.`admin_instance`;
+create table `zeus`.`admin_instance`(
+  `instance_id` varchar(30) not null primary key
 )
 ENGINE = MyISAM;

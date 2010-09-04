@@ -10,7 +10,7 @@ if Zeus.is_admin
   ten_min_back = Time.now - 600
 
   logger.info('checking avg_queu for the farm')
-  avg_queue = Zeus.connection.query("select avg(s.requests_in_queues + s.requests_in_global_queue) from instance_snapshot s, instances i where s.instance_id = i.instance_id and i.status = 'running' and s.date_time > '#{ten_min_back.strftime('%Y-%m-%d %H:%M:%S')}'").fetch_row[0]
+  avg_queue = Zeus.connection.query("select avg(s.requests_in_queues + s.requests_in_global_queue) from instance_snapshot s where exists (select 1 from instances i where s.instance_id = i.instance_id and i.status = 'running') and s.date_time > '#{ten_min_back.strftime('%Y-%m-%d %H:%M:%S')}'").fetch_row[0]
   logger.info("average queue for farm is #{avg_queue}")
 
   logger.info('checking average max_processes for the farm')

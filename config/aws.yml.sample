@@ -1,6 +1,5 @@
 aws_access_key_id : asdf
 aws_secret_access_key : asdf
-ami : ami-780fe511
 security_group : www
 key : aakash-key
 elb-name : zeus-load-balancer

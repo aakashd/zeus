@@ -25,7 +25,7 @@ if Zeus.is_admin
   if !avg_queue.nil? && avg_queue.to_f > 10.0
 
     logger.debug("starting another 3 instances as avg_queue is more than 10")
-    instances = Zeus.ec2.run_instances(Zeus.ec2_config['ami'],1,3,[Zeus.ec2_config['security_group']],Zeus.ec2_config['key'])
+    instances = Zeus.ec2.run_instances(Zeus.ami,1,3,[Zeus.ec2_config['security_group']],Zeus.ec2_config['key'])
     new_instance_ids = instances.collect{|i| i[:aws_instance_id] }
     Zeus.elb.elb.register_instances_with_load_balancer(Zeus.ec2_config['elb-name'], *instance_ids)
 

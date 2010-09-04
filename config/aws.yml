@@ -1,6 +1,0 @@
-aws_access_key_id : AKIAI7HQ6GHB7PBSHPFA
-aws_secret_access_key : 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
-ami : ami-780fe511
-security_group : www
-key : aakash-key
-elb-name : zeus-load-balancer

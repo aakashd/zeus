@@ -26,8 +26,8 @@ else # check if the admin instance is running or not, else try to take control o
   admin_last_updated_at = Zeus.get_attribute_for_instance('last_updated_at',admin_instance_id)
   logger.info("admin #{admin_instance_id} last updated at #{admin_last_updated_at}")
   if (Time.now - Time.parse(admin_last_updated_at)) > 600
-    Zeus.debug("making myself admin")
+    logger.debug("making myself admin")
     Zeus.connection.query("update admin_instance set instance_id = #{Zeus.instance_id} where instance_id = #{admin_instance_id}")
-    Zeus.debug("Am I admin? - #{Zeus.is_admin}")
+    logger.debug("Am I admin? - #{Zeus.is_admin}")
   end
 end

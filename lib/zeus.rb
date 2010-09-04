@@ -41,7 +41,7 @@ module Zeus
   end
 
   def self.all_live_instances
-    res = Zeus.connection.query("select instance_id from zeus.instances where status != 'terminated'")
+    res = Zeus.connection.query("select instance_id from zeus.instances where status = 'running'")
     instance_ids = []
     while row = res.fetch_row do
       instance_ids << row[0]
@@ -53,7 +53,7 @@ module Zeus
     res = Zeus.connection.query("select instance_id from admin_instance a where exists (select 1 from instances i where i.instance_id = a.instance_id and i.status = 'running')")
     row = res.fetch_row
     admin_id = row.nil? ? nil : row[0]
-    logger.info('admin instanceid is #{admin_id}')
+    logger.info("admin instanceid is #{admin_id}")
     admin_id
   end
 

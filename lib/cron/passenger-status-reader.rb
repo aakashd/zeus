@@ -40,7 +40,7 @@ insert_stmt = "insert into #{Zeus.config['db_database']}.instance_snapshot(insta
 
 Zeus.connection.query(insert_stmt)
 
-update_stmt = "update instances set last_updated_at = CURRENT_TIMESTAMP where instance_id = '#{Zeus.instance_id}'"
+update_stmt = "update instances set last_updated_at = CURRENT_TIMESTAMP, status = 'running' where instance_id = '#{Zeus.instance_id}'"
 
 logger.debug("updating the las updated time")
 

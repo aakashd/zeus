@@ -37,9 +37,9 @@ if Zeus.is_admin
     logger.debug("current_total_instances - #{current_total_instance}")
     
     required_instances = ((avg_active_processes.to_f / avg_max_processes.to_f) * current_total_instance.to_f).ceil
-    logger.debug("required_instances #{required_instances}")
 
     required_instances = 1 if required_instances == 0
+    logger.debug("required_instances #{required_instances}")
 
     current_instance_ids = Zeus.elb.describe_load_balancers(Zeus.ec2_config['elb-name'])[0][:instances]
     logger.debug("current_instance_ids - #{current_instance_ids}")

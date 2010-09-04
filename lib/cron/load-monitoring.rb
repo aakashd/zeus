@@ -50,7 +50,7 @@ if Zeus.is_admin
     Zeus.elb.deregister_instances_with_load_balancer(Zeus.ec2_config['elb-name'],*instances_to_be_removed)
     logger.debug("deregistered instances")
 
-    Zeus.ec2.ec2.terminate_instances(*instances_to_be_removed)
+    Zeus.ec2.terminate_instances(*instances_to_be_removed)
     logger.debug("terminated the instances")
 
   end
